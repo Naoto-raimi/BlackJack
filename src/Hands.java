@@ -33,15 +33,15 @@ public class Hands {
     //手札の合計値を計算する
     public int calculateTotal() {
         int total = cardList.stream()
-                .mapToInt(card -> card.getNumber().getPoint())
+                .mapToInt(card -> card.getNumber().getPoint()) //streamをintに変換
                 .sum();
 
         List<Card> aceList = cardList.stream()
-                .filter(this::isAce)
-                .collect(Collectors.toList());
+                .filter(this::isAce) //メソッド参照（インスタンス::メソッド名）
+                .collect(Collectors.toList()); //listにする
 
         // エースは11として計算しているので、
-        // 最大でエースの枚数だけ10を引ける
+        // 最大でエースの枚数だけ10を引ける(Aをあえて1としてカードを引くはできない)
         for (Card ace : aceList) {
             if (total > MAX_TOTAL_VALUE) {
                 total -= ace.getNumber().getPoint();
